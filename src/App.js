@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import SearchForm from './components/SearchForm.js'
 
 const REVIEWS = [
   "I love this place!",
@@ -15,13 +16,7 @@ class App extends Component {
       <div className="App">
         <div className="App-header">
           <h2>Search for Beauty Places</h2>
-          <form>
-            <label style={{color: "white"}} value="">
-              Search by your current location: 
-              <input type="text"></input>
-              <input type="submit" value="Submit" />
-            </label>
-          </form>
+          <SearchForm />
         </div>
 
         <div className="App-body">
