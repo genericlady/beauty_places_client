@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
@@ -7,12 +6,15 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+          <h2>Beauty Reviews</h2>
+          <form>
+            <label style={{color: "white"}} value="">
+              Search by your current location: 
+              <input type="text"></input>
+              <input type="submit" value="Submit" />
+            </label>
+          </form>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
       </div>
     );
   }
