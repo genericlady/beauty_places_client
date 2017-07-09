@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 const REVIEWS = [
   "I love this place!",
@@ -25,6 +26,11 @@ BeautyPlace.defaultProps = {
   name: 'Polly Polishes',
   rating: '*',
   reviews: REVIEWS
+};
+
+BeautyPlace.propTypes = {
+  name: PropTypes.string,
+  rating: PropTypes.integer
 };
 
 export default BeautyPlace;
