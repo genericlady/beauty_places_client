@@ -18,7 +18,6 @@ class App extends Component {
         </div>
 
         <div className="App-body">
-          <h3>Reviews Found</h3>
           <div className="Places">
             <BeautyPlace name="Sally's Beauty Place" rating="*****" />
             <BeautyPlace name="A place for your Nails!" rating="*****" />
