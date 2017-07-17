@@ -10,16 +10,17 @@ const REVIEWS = [
 
 class BeautyPlace extends Component {
   render() {
+    const beautyPlace = this.props.beautyPlace
     const reviews = this.props.reviews.map(
       review => React.createElement('li', {}, review))
 
     return (
       <div className="beauty-place">
-        <h2>{this.props.name}</h2>
+        <h2>{beautyPlace.name}</h2>
         <small>
-          <Address street="123 main lane" city="San Francisco" /> 
+          <Address fullAddress={beautyPlace.fullAddress} /> 
         </small>
-        <h4>Rating: {this.props.rating}</h4>
+        <h4>Rating: {beautyPlace.rating}</h4>
         {reviews}
       </div>
     );
@@ -28,7 +29,7 @@ class BeautyPlace extends Component {
 
 BeautyPlace.defaultProps = {
   name: 'Polly Polishes',
-  rating: '*',
+  rating: 5,
   reviews: REVIEWS
 };
 
