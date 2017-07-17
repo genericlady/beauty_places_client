@@ -6,7 +6,7 @@ class Address extends Component {
     super(props);
 
     this.state = {
-      fullAddress: `${props.street}, ${props.city}`
+      fullAddress: this.props.fullAddress
     }
   }
 
@@ -20,8 +20,7 @@ class Address extends Component {
 }
 
 Address.propTypes = {
-  street: PropTypes.string,
-  city: PropTypes.string
+  fullAddress: PropTypes.string
 };
 
 export default Address;
