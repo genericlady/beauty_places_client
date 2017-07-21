@@ -1,48 +1,27 @@
 import './App.css';
 import React, { Component } from 'react';
-import SearchForm from './components/SearchForm.js';
-import Filters from './components/Filters.js';
-import BeautyBrowser from './components/BeautyBrowser.js';
+import BeautyPlaceService from './services/BeautyPlaceService'
+import SearchForm from './components/SearchForm';
+import Filters from './components/Filters';
+import BeautyBrowser from './components/BeautyBrowser';
 
 class App extends Component {
   constructor() {
     super();
 
     this.state = {
-      beautyPlaces: this.fetchBeautyPlaces(),
+      beautyPlaces: [],
       filters: {
-        type: 'all',
+        type: 'all'
       }
     };
 
     this.handleChangeFilterType = this.handleChangeFilterType.bind(this);
-    this.fetchBeautyPlaces = this.fetchBeautyPlaces.bind(this);
   }
 
-  fetchBeautyPlaces() {
-    let base = 'https://maps.googleapis.com/maps/api/';
-    let path = 'place/textsearch/json';
-    let query = '?query=hair_care+skin_care+nail_care+in+NYC';
-    let key = '&key=AIzaSyANZpynoTmXN7Xh7XM8g4oVVldbiAolqUs';
-    let url = base + path;
-
-    // if (this.state.filters.type !== 'all') {
-    //   console.log(`?query=skin_care+in+NYC`);
-    //   url += `?type=${this.state.filters.type}`;
-    // }
-
-    var myHeaders = new Headers();
-
-    var myInit = { method: 'GET',
-      headers: myHeaders,
-      mode: 'no-cors',
-      cache: 'default' };
-
-    fetch(url + query + key, myInit)
-      .then(res => res.json())
-      .then(beautyPlaces => this.setState({ beautyPlaces }));
-
-    console.log(this.state.beautyPlaces);
+  componentDidMount() {
+    BeautyPlaceService.fetchPlaces().then(
+      places => this.setState({beautyPlaces: places}))
   }
 
   handleChangeFilterType() {
@@ -50,6 +29,8 @@ class App extends Component {
   }
 
   render() {
+    const beautyPlaces = this.state.beautyPlaces;
+
     return (
       <div className="App">
         <div className="App-header">
@@ -60,7 +41,9 @@ class App extends Component {
         </div>
 
         <div className="App-body">
-          <BeautyBrowser beautyPlaces={this.state.beautyPlaces} />
+          {console.log("we are passing beautyPlaces json to a component")}
+          {console.log(beautyPlaces)}
+          <BeautyBrowser beautyPlaces={beautyPlaces} />
         </div>
       </div>
     );

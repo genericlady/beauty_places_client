@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Address from './Address.js'
-
-const REVIEWS = [
-  "I love this place!",
-  "Best experience ever!",
-  "YES! Will come back!"
-]
+import Address from './Address.js';
+import Review from './Review.js';
 
 class BeautyPlace extends Component {
   render() {
     const beautyPlace = this.props.beautyPlace
-    const reviews = this.props.reviews.map(
-      review => React.createElement('li', {}, review))
+    const fullAddress = beautyPlace.fullAddress
+    const reviews = beautyplace.reviews
 
     return (
       <div className="beauty-place">
@@ -21,7 +16,8 @@ class BeautyPlace extends Component {
           <Address fullAddress={beautyPlace.fullAddress} /> 
         </small>
         <h4>Rating: {beautyPlace.rating}</h4>
-        {reviews}
+        
+        <Reviews reviews={reviews} />
       </div>
     );
   }
