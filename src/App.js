@@ -11,6 +11,7 @@ class App extends Component {
 
     this.state = {
       beautyPlaces: [],
+      currentLocation: "",
       filters: {
         type: 'all'
       }
@@ -19,9 +20,14 @@ class App extends Component {
     this.handleChangeFilterType = this.handleChangeFilterType.bind(this);
   }
 
+  componentWillMount() {
+    this.setState({currentLocation: "New York, NY"})
+  }
+
   componentDidMount() {
-    BeautyPlaceService.fetchPlaces().then(
-      places => this.setState({beautyPlaces: places}))
+    BeautyPlaceService.fetchPlaces(this.state.currentLocation).then(
+      beautyPlaces => this.setState({beautyPlaces})
+    )
   }
 
   handleChangeFilterType() {
@@ -41,7 +47,6 @@ class App extends Component {
         </div>
 
         <div className="App-body">
-          {console.log("we are passing beautyPlaces json to a component")}
           {console.log(beautyPlaces)}
           <BeautyBrowser beautyPlaces={beautyPlaces} />
         </div>

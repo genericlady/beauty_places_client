@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import Address from './Address.js';
-import Review from './Review.js';
+import Reviews from './Reviews.js';
+import Rating from './Rating.js';
 
 class BeautyPlace extends Component {
   render() {
     const beautyPlace = this.props.beautyPlace
-    const fullAddress = beautyPlace.fullAddress
-    const reviews = beautyplace.reviews
 
     return (
       <div className="beauty-place">
@@ -15,23 +13,11 @@ class BeautyPlace extends Component {
         <small>
           <Address fullAddress={beautyPlace.fullAddress} /> 
         </small>
-        <h4>Rating: {beautyPlace.rating}</h4>
-        
-        <Reviews reviews={reviews} />
+        <Rating rating={beautyPlace.rating} />
+        <Reviews reviews={beautyPlace.reviews} />
       </div>
     );
   }
 }
-
-BeautyPlace.defaultProps = {
-  name: 'Polly Polishes',
-  rating: 5,
-  reviews: REVIEWS
-};
-
-BeautyPlace.propTypes = {
-  name: PropTypes.string,
-  rating: PropTypes.integer
-};
 
 export default BeautyPlace;

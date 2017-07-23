@@ -27,13 +27,13 @@ export default class Filters extends Component {
   }
 
   toFilters(cSelected) {
-    const filters = cSelected.map((checkboxInteger) => {
+    cSelected.map((checkboxInteger) => {
       switch (checkboxInteger) {
         case 1:
           return "Hair";
         case 2:
           return "Skin";
-        case 3:
+        default:
           return "Nails";
       }
     });
