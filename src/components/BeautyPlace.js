@@ -9,12 +9,14 @@ class BeautyPlace extends Component {
 
     return (
       <div className="beauty-place">
-        <h2>{beautyPlace.name}</h2>
+        <div className="beauty-place-header">
+          <h2 className="place-name pr-1">{beautyPlace.name}</h2>
+          <Rating rating={beautyPlace.rating} />
+        </div>
+        <Reviews reviews={beautyPlace.reviews} />
         <small>
           <Address fullAddress={beautyPlace.fullAddress} /> 
         </small>
-        <Rating rating={beautyPlace.rating} />
-        <Reviews reviews={beautyPlace.reviews} />
       </div>
     );
   }

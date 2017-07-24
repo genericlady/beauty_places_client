@@ -1,4 +1,4 @@
-import './App.css';
+import './styles/App.css';
 import React, { Component } from 'react';
 import BeautyPlaceService from './services/BeautyPlaceService'
 import SearchForm from './components/SearchForm';
