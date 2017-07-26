@@ -1,7 +1,9 @@
-
 {
   "src/components/*.js": {
     "type": "component"
+  },
+  "src/containers/*.js": {
+    "type": "container"
   },
   "src/reducers/*.js": {
     "type": "reducer"

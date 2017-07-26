@@ -7,16 +7,16 @@ const BeautyPlace = (props) => {
     const beautyPlace = props.beautyPlace
 
     return (
-      <div className="beauty-place">
-        <div className="beauty-place-header">
-          <h2 className="place-name pr-1">{beautyPlace.name}</h2>
-          <Rating rating={beautyPlace.rating} />
-          <BeautyPlaceButton placeId={beautyPlace.place_id} />
-        </div>
-        <small>
-          <Address fullAddress={beautyPlace.fullAddress} /> 
-        </small>
-      </div>
+      <tr className="beauty-place">
+        <td>
+          <h3>{beautyPlace.name}</h3>
+          <small>
+            <Address fullAddress={beautyPlace.formatted_address} /> 
+          </small>
+        </td>
+        <td><Rating rating={beautyPlace.rating} /></td>
+        <td><BeautyPlaceButton placeId={beautyPlace.place_id} /></td>
+      </tr>
     );
 }
 

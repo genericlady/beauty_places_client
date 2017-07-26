@@ -33,7 +33,7 @@ class SearchableBeautyPlacesContainer extends Component {
     const beautyPlaces = this.state.beautyPlaces;
 
     return (
-      <div className="w-50 mx-auto">
+      <div className="mx-auto">
         <h2 className="text-center">Search for Beauty Places</h2>
         <SearchForm onSubmit={this.fetchBeautyPlaces} />
         <Filters filters={this.state.filters}

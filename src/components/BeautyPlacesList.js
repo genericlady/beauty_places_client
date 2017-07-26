@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import BeautyPlace from './BeautyPlace';
+import { Table } from 'reactstrap';
 
 const BeautyPlacesList = (props) => {
   const beautyPlaces = props.beautyPlaces.map(
@@ -7,9 +8,11 @@ const BeautyPlacesList = (props) => {
   );
 
   return (
-    <div className="places">
-      {beautyPlaces}
-    </div>
+    <Table striped>
+      <tbody>
+        {beautyPlaces}
+      </tbody>
+    </Table>
   );
 }
 
