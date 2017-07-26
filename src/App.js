@@ -1,6 +1,5 @@
 import './styles/App.css';
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 import SearchableBeautyPlacesContainer from './containers/SearchableBeautyPlacesContainer';
 

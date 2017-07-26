@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import BeautyPlace from './BeautyPlace';
 import { Table } from 'reactstrap';
 

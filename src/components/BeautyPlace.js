@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Address from './Address.js';
 import Rating from './Rating.js';
 import BeautyPlaceButton from './BeautyPlaceButton.js';
