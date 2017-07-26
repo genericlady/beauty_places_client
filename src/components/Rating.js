@@ -3,41 +3,26 @@ import FullStar from './FullStar';
 import HalfStar from './HalfStar';
 import EmptyStar from './EmptyStar';
 
-class Rating extends Component {
-  render() {
-    const rating = this.props.rating ? this.props.rating : 0
-    const stars = []
-    const integer = (rating + "").split(".")[0]
-    const fractional = (rating + "").split(".")[1]
-    const difference = 5 - integer
+const Rating = ({ rating = 0 }) => {
+    const ceil = Math.ceil(rating)
+    const floor = Math.floor(rating)
+    const fractional = rating - floor
 
-    if (rating === 5) {
-      for(let i=0; i < 5; i++) { stars.push(<FullStar />) }
-    } else if (rating > 0) {
-      for(let i=0; i < integer; i++) { stars.push(<FullStar />) }
-
-      if (fractional < 5) {
-        stars.push(<EmptyStar />)
-      } else if (fractional >= 5) {
-        stars.push(<HalfStar />)
+    const renderStars = [...Array(5)].map((star, index) =>  {
+      if (floor >= index + 1) {
+        return <FullStar key={index} />
+      } else if (fractional >= 0.5 && ceil == index + 1) {
+        return <HalfStar key={index} />
       }
 
-      if (fractional === undefined) {
-        for(let i=0; i < difference; i++) { stars.push(<EmptyStar />) }
-      } else {
-        for(let i=1; i < difference; i++) { stars.push(<EmptyStar />) }
-      }
-
-    } else {
-      for(let i=0; i < 5; i++) { stars.push(<EmptyStar />) }
-    }
+      return <EmptyStar key={index} />
+    });
 
     return (
       <div className="rating d-inline">
-        {stars}
+        {renderStars}
       </div>
-    )
-  }
+    );
 }
 
 export default Rating;

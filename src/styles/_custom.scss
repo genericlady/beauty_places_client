@@ -1,5 +1,29 @@
+.margin-auto {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
 .place-name {
   display: inline !important;
+}
+
+.filters {
+  width: 200px;
+  @extend .margin-auto;
+}
+
+.places {
+  width: 60%;
+  @extend .margin-auto;
+}
+
+
+.modal-dialog{
+    overflow-y: initial !important
+}
+.modal-body{
+    height: 75vh;
+    overflow-y: auto;
 }
 
 .search-typeahead {

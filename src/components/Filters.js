@@ -41,7 +41,7 @@ export default class Filters extends Component {
 
   render() {
     return (
-      <div>
+      <div className="filters">
         <ButtonGroup>
           <Button color="primary" onClick={() => this.onCheckboxBtnClick(1)} 
                   active={this.state.cSelected.includes(1)}>Hair</Button>

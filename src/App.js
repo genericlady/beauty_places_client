@@ -39,15 +39,14 @@ class App extends Component {
 
     return (
       <div className="App">
-        <div className="App-header">
-          <h2>Search for Beauty Places</h2>
+        <div className="App-header w-50 mx-auto">
+          <h2 className="text-center">Search for Beauty Places</h2>
           <SearchForm onSubmit={this.fetchBeautyPlaces} />
           <Filters filters={this.state.filters}
                    onChangeType={this.handleChangeFilterType} />
         </div>
 
         <div className="App-body">
-          {console.log(beautyPlaces)}
           <BeautyBrowser beautyPlaces={beautyPlaces} />
         </div>
       </div>
