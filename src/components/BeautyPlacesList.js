@@ -3,7 +3,7 @@ import BeautyPlace from './BeautyPlace';
 import { Table } from 'reactstrap';
 
 const BeautyPlacesList = (props) => {
-  const beautyPlaces = props.beautyPlaces.map(
+  const beautyPlaces = props.store.getState().beautyPlaces.map(
     (beautyPlace, index) => (<BeautyPlace key={index} beautyPlace={beautyPlace} />)
   );
 

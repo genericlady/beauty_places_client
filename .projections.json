@@ -10,5 +10,8 @@
   },
   "src/actions/*.js": {
     "type": "action"
+  },
+  "src/services/*.js": {
+    "type": "service"
   }
 }

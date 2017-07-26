@@ -24,6 +24,11 @@ export default class SearchForm extends React.Component {
   handleFormSubmit(ev) {
     ev.preventDefault();
 
+    this.props.store.dispatch({
+      type: 'FETCH_PLACES',
+      place: this.state.loc
+    });
+
     this.setState({
       loc: ev.target.value, 
       showTypeahead: false
@@ -32,10 +37,10 @@ export default class SearchForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleFormSubmit}>
+      <form onSubmit={(event) => this.handleFormSubmit}>
         <label style={{color: "white"}} value="">
           Search by your current location: 
-          <input type="text" onChange={this.handleChange}></input>
+          <input type="text" onChange={(event) => this.handleChange(event)} />
           <input type="submit" value="Submit" />
         <div className={this.state.showTypeahead ? "dropdown" : "invisible"}>
           <div className="search-typeahead">

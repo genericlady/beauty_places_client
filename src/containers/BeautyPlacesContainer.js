@@ -23,9 +23,10 @@ class SearchableBeautyPlacesContainer extends Component {
   }
 
   componentDidMount() {
-    BeautyPlaceService.fetchPlaces(this.state.currentLocation).then(
-      beautyPlaces => this.setState({beautyPlaces})
-    )
+    this.store.dispatch({ type: 'FETCH_PLACES' });
+    // BeautyPlaceService.fetchPlaces(this.state.currentLocation).then(
+    //   beautyPlaces => this.setState({beautyPlaces})
+    // )
   }
 
 
