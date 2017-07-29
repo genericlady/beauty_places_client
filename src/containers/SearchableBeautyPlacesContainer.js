@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import BeautyPlaceService from '../services/BeautyPlaceService';
+import { fetchByCoordinates } from '../services/BeautyPlaceService';
+import CurrentLocationService from '../services/CurrentLocationService'
 import SearchForm from '../components/SearchForm';
 import Filters from '../components/Filters';
 import BeautyPlacesList from '../components/BeautyPlacesList';
@@ -10,7 +11,7 @@ class SearchableBeautyPlacesContainer extends Component {
 
     this.state = {
       beautyPlaces: [],
-      currentLocation: "",
+      currentLocation: {},
       filters: {
         type: 'all'
       }
@@ -19,18 +20,21 @@ class SearchableBeautyPlacesContainer extends Component {
   }
 
   componentWillMount() {
-    this.setState({currentLocation: "New York, NY"})
-  }
+    navigator.geolocation.getCurrentPosition(position => {
+      const { latitude, longitude } = position.coords 
 
-  componentDidMount() {
-    BeautyPlaceService.fetchPlaces(this.state.currentLocation).then(
-      beautyPlaces => this.setState({beautyPlaces})
-    )
-  }
+      fetchByCoordinates(latitude.toString(), longitude.toString())
+        .then(beautyPlaces => {
+          setTimeout(() => null, 0);
+          this.setState({beautyPlaces});
+        })
+    });
 
+    console.log(this.state.beautyPlaces);
+  }
 
   render() {
-    const beautyPlaces = this.state.beautyPlaces;
+    const { beautyPlaces } = this.state;
 
     return (
       <div className="mx-auto">

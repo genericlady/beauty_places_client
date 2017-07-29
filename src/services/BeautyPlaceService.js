@@ -1,12 +1,16 @@
 const API_URL = process.env.REACT_APP_API_URL;
 
-const BeautyPlaceService = {
-  fetchPlaces(place) {
-    let url = `${API_URL}/search?type=hair+skin+nails&current_location=${place}`;
+export function fetchByCoordinates(lat, lng) {
+  let url = `${API_URL}/search?type=hair+skin+nails&coords=${lat}+${lng}`;
 
-    return fetch(url, {accept: 'application/json'})
-      .then(res => res.json())
-  }
-}
+  return fetch(url, {accept: 'application/json'})
+    .then(res => res.json())
+};
 
-export default BeautyPlaceService;
+export function fetchByCityState(city_state) {
+  let url = `${API_URL}/search?type=hair+skin+nails&city_state=${city_state}`;
+
+  return fetch(url, {accept: 'application/json'})
+    .then(res => res.json())
+};
+
