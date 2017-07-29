@@ -32,7 +32,7 @@ export default class SearchForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleFormSubmit}>
+      <form className="search" onSubmit={this.handleFormSubmit}>
         <label style={{color: "white"}} value="">
           Search by your current location: 
           <input type="text" onChange={this.handleChange}></input>
