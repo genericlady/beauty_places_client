@@ -5,7 +5,7 @@ export default class Filters extends Component {
     constructor (props) {
     super(props);
 
-    this.state = { cSelected: [] };
+    this.state = { cSelected: [1, 2, 3] };
 
     this.toFilters = this.toFilters.bind(this);
     this.onCheckboxBtnClick = this.onCheckboxBtnClick.bind(this);
@@ -23,18 +23,19 @@ export default class Filters extends Component {
     }
 
     this.setState({ cSelected: [...this.state.cSelected] });
-    this.toFilters(this.state.cSelected);
+    this.props.changeFilters(this.toFilters(this.state.cSelected));
+    
   }
 
   toFilters(cSelected) {
-    cSelected.map((checkboxInteger) => {
+    return cSelected.map((checkboxInteger) => {
       switch (checkboxInteger) {
         case 1:
-          return "Hair";
+          return "hair";
         case 2:
-          return "Skin";
+          return "skin";
         default:
-          return "Nails";
+          return "nails";
       }
     });
   }
@@ -43,12 +44,16 @@ export default class Filters extends Component {
     return (
       <div className="filters">
         <ButtonGroup>
-          <Button color="primary" onClick={() => this.onCheckboxBtnClick(1)} 
-                  active={this.state.cSelected.includes(1)}>Hair</Button>
-          <Button color="primary" onClick={() => this.onCheckboxBtnClick(2)} 
-                  active={this.state.cSelected.includes(2)}>Skin</Button>
-          <Button color="primary" onClick={() => this.onCheckboxBtnClick(3)} 
-                  active={this.state.cSelected.includes(3)}>Nails</Button>
+          <Button color="primary" 
+            onClick={() => this.onCheckboxBtnClick(1)}
+            active={this.state.cSelected.includes(1)}>Hair
+          </Button>
+          <Button color="primary" 
+            onClick={() => this.onCheckboxBtnClick(2)}
+            active={this.state.cSelected.includes(2)}>Skin</Button>
+          <Button color="primary" 
+            onClick={() => this.onCheckboxBtnClick(3)} 
+            active={this.state.cSelected.includes(3)}>Nails</Button>
         </ButtonGroup>
       </div>
     );

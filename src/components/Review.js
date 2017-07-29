@@ -6,9 +6,9 @@ const Review = (props) => {
 
   return (
     <div className="review pb-2">
-      <p>Author: {review.author_name}</p>
-      <p>rating: <Rating rating={review.rating} /></p>
-      <p>{review.text}</p>
+      <div>Author: {review.author_name}</div>
+      <div>rating: <Rating rating={review.rating} /></div>
+      <div>{review.text}</div>
     </div>
   )
 }
