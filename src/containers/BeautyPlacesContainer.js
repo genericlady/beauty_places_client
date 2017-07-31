@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import { fetchByCoordinates } from '../services/BeautyPlaceService';
+import { fetchByCoordinates, fetchCurrentLocation } from '../services/BeautyPlaceService';
 import SearchForm from '../components/SearchForm';
 import Filters from '../components/Filters';
 import BeautyPlacesList from '../components/BeautyPlacesList';
 
-class SearchableBeautyPlacesContainer extends Component {
+class BeautyPlacesContainer extends Component {
   constructor() {
     super();
 
     this.state = {
       beautyPlaces: [],
-      currentLocation: {},
+      currentLocation: {city: "", state: ""},
       filters: ['hair', 'skin', 'nails'],
       coords: {latitude: 0, longitude: 0}
     };
@@ -22,6 +22,7 @@ class SearchableBeautyPlacesContainer extends Component {
       this.setState({coords: position.coords})
       const { latitude, longitude } = position.coords 
 
+      this.setCurrentLocation(latitude, longitude);
       this.setBeautyPlaces(latitude, longitude, this.state.filters);
     });
   }
@@ -31,6 +32,12 @@ class SearchableBeautyPlacesContainer extends Component {
       .then(beautyPlaces => {
         this.setState({beautyPlaces});
       })
+  }
+
+  setCurrentLocation = (latitude, longitude) => {
+    fetchCurrentLocation(latitude, longitude)
+      .then(currentLocation => 
+        this.setState({currentLocation}))
   }
 
   handleFilterChange = (filters) => { 
@@ -44,8 +51,7 @@ class SearchableBeautyPlacesContainer extends Component {
 
     return (
       <div className="mx-auto">
-        <h2 className="text-center">Search for Beauty Places</h2>
-        <SearchForm onSubmit={this.fetchBeautyPlaces} />
+        <SearchForm currentLocation={this.state.currentLocation} onSubmit={this.fetchBeautyPlaces} />
         <Filters changeFilters={(filters) => this.handleFilterChange(filters)} />
         <BeautyPlacesList beautyPlaces={beautyPlaces} />
       </div>
@@ -53,4 +59,4 @@ class SearchableBeautyPlacesContainer extends Component {
   }
 }
 
-export default SearchableBeautyPlacesContainer;
+export default BeautyPlacesContainer;

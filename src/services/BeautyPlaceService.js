@@ -14,3 +14,10 @@ export function fetchByCityState(city_state) {
     .then(res => res.json())
 };
 
+export function fetchCurrentLocation(lat, lng) {
+  let url = `${API_URL}/current_location?coords=${lat}+${lng}`;
+
+  return fetch(url, {accept: 'application/json'})
+    .then(res => res.json())
+};
+
