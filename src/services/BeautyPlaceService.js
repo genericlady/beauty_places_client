@@ -4,11 +4,13 @@ export function fetchByCoordinates(lat, lng, filters) {
   let url = `${API_URL}/search?type=${filters.join('+')}&coords=${lat}+${lng}`;
 
   return fetch(url, {accept: 'application/json'})
-    .then(res => res.json())
 };
 
-export function fetchByCityState(city_state) {
-  let url = `${API_URL}/search?type=hair+skin+nails&city_state=${city_state}`;
+export function fetchByCityState(currentLocation, filters) {
+  const city = `current_location[city]=${currentLocation.city}`
+  const state = `current_location[state]=${currentLocation.state}`
+
+  let url = `${API_URL}/search?type=${filters.join('+')}&${city}&${state}`;
 
   return fetch(url, {accept: 'application/json'})
     .then(res => res.json())

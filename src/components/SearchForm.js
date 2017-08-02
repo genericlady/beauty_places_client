@@ -7,8 +7,7 @@ export default class SearchForm extends React.Component {
 
     this.state = {
       locationSuggestion: '',
-      showTypeahead: false,
-      currentLocation: {}
+      showTypeahead: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -42,15 +41,15 @@ export default class SearchForm extends React.Component {
     const city_state = `${city}, ${state}`
     return (
       <form className="search" onSubmit={this.handleFormSubmit}>
-          <label style={{color: "white"}} value="">
-            <input type="text" onChange={this.handleChange} placeholder={city_state}></input>
-            <input type="submit" value="Change Location" />
-            <div className={this.state.showTypeahead ? "dropdown" : "invisible"}>
-              <div className="search-typeahead">
-              {this.state.locationSuggestion}
-              </div>
+        <label style={{color: "white"}} value="">
+          <input type="text" onChange={this.handleChange} placeholder={city_state}></input>
+          <input type="submit" value="Change Location" />
+          <div className={this.state.showTypeahead ? "dropdown" : "invisible"}>
+            <div className="search-typeahead">
+            {this.state.locationSuggestion}
             </div>
-          </label>
+          </div>
+        </label>
       </form>
     );
   }

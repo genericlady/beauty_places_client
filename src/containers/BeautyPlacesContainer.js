@@ -1,57 +1,40 @@
 import React, { Component } from 'react';
-import { fetchByCoordinates, fetchCurrentLocation } from '../services/BeautyPlaceService';
+import { connect } from 'react-redux';
 import SearchForm from '../components/SearchForm';
 import Filters from '../components/Filters';
 import BeautyPlacesList from '../components/BeautyPlacesList';
+import { 
+  getBeautyPlaces, 
+  getCurrentLocation,
+  changeFilters
+} from '../actions/BeautyPlaceActions'
 
 class BeautyPlacesContainer extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      beautyPlaces: [],
-      currentLocation: {city: "", state: ""},
-      filters: ['hair', 'skin', 'nails'],
-      coords: {latitude: 0, longitude: 0}
-    };
-
-  }
-
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(position => {
-      this.setState({coords: position.coords})
       const { latitude, longitude } = position.coords 
+      const { filters } = this.props
 
-      this.setCurrentLocation(latitude, longitude);
-      this.setBeautyPlaces(latitude, longitude, this.state.filters);
+      this.props
+        .getCurrentLocation(latitude, longitude)
+        .then(currentLocation => {
+          this.props.getBeautyPlaces(filters, currentLocation)
+        });
+
     });
   }
 
-  setBeautyPlaces = (latitude, longitude, filters) => {
-    fetchByCoordinates(latitude.toString(), longitude.toString(), filters) 
-      .then(beautyPlaces => {
-        this.setState({beautyPlaces});
-      })
-  }
-
-  setCurrentLocation = (latitude, longitude) => {
-    fetchCurrentLocation(latitude, longitude)
-      .then(currentLocation => 
-        this.setState({currentLocation}))
-  }
-
   handleFilterChange = (filters) => { 
-    this.setState({ filters: filters }); 
-    const { latitude, longitude } = this.state.coords 
-    this.setBeautyPlaces(latitude, longitude, filters)
+    this.props.changeFilters(filters);
+    this.props.getBeautyPlaces(filters, this.props.currentLocation);
   }
 
   render() {
-    const { beautyPlaces } = this.state;
+    const { beautyPlaces, currentLocation } = this.props;
 
     return (
       <div className="mx-auto">
-        <SearchForm currentLocation={this.state.currentLocation} onSubmit={this.fetchBeautyPlaces} />
+        <SearchForm currentLocation={currentLocation} onSubmit={this.fetchBeautyPlaces} />
         <Filters changeFilters={(filters) => this.handleFilterChange(filters)} />
         <BeautyPlacesList beautyPlaces={beautyPlaces} />
       </div>
@@ -59,4 +42,16 @@ class BeautyPlacesContainer extends Component {
   }
 }
 
-export default BeautyPlacesContainer;
+export default connect(
+  state => ({ 
+    beautyPlaces: state.beautyPlaces,
+    currentLocation: state.currentLocation,
+    filters: state.filters,
+    coords: state.coords
+  }), { 
+    getCurrentLocation, 
+    getBeautyPlaces,
+    changeFilters
+  }
+)(BeautyPlacesContainer);
+
