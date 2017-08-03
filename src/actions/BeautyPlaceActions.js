@@ -1,6 +1,7 @@
 import {
   fetchByCityState,
-  fetchCurrentLocation
+  fetchCurrentLocation,
+  fetchByUserInput
 } from '../services/BeautyPlaceService';
 
 const receivedBeautyPlaces = beautyPlaces => {
@@ -24,6 +25,13 @@ const changedFilters = filters => {
   }
 }
 
+const userChangedCurrentLocation = currentLocation => {
+  return {
+    type: 'USER_CHANGED_LOCATION',
+    currentLocation
+  }
+}
+
 export const getBeautyPlaces = (filters, currentLocation) => {
   return dispatch => {
     return fetchByCityState(currentLocation, filters)
@@ -31,9 +39,17 @@ export const getBeautyPlaces = (filters, currentLocation) => {
   }
 }
 
+export const getBeautyPlacesByUserInput = (filters, userInput) => {
+  return dispatch => {
+    return fetchByUserInput(userInput, filters)
+      .then(beautyPlaces => dispatch(receivedBeautyPlaces(beautyPlaces)));
+  }
+}
+
 export const getCurrentLocation = (latitude, longitude) => {
   return dispatch => {
     const currentLocation = fetchCurrentLocation(latitude, longitude); 
+
     currentLocation.then(cl => dispatch(receivedCurrentLocation(cl)))
 
     return Promise.resolve(currentLocation)
@@ -42,4 +58,10 @@ export const getCurrentLocation = (latitude, longitude) => {
 
 export const changeFilters = (filters) => {
   return dispatch => dispatch(changedFilters(filters));
+}
+
+export const userInputCurrentLocation = (userInput) => {
+  const newLocation = { city: "", state: "", userInput }
+
+  return dispatch => dispatch(userChangedCurrentLocation(newLocation))
 }

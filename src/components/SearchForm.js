@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 export default class SearchForm extends React.Component {
   constructor() {
@@ -7,7 +8,8 @@ export default class SearchForm extends React.Component {
 
     this.state = {
       locationSuggestion: '',
-      showTypeahead: false
+      showTypeahead: false,
+      userInput: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -20,6 +22,7 @@ export default class SearchForm extends React.Component {
 
   handleChange = event => {
     this.setState({
+      userInput: event.target.value,
       locationSuggestion: event.target.value,
       showTypeahead: event.target.value.length > 0 ? true : false,
     });
@@ -33,24 +36,38 @@ export default class SearchForm extends React.Component {
       showTypeahead: false
     });
 
-    //this.props.handleCurrentLocationUpdate
+    this.props.handleCurrentLocationUpdate(this.state.userInput)
+  }
+
+  locationFormValue() {
+    const {city, state} = this.props.currentLocation
+    const userInput = this.state.userInput
+    const cityState = `${city}, ${state}`
+
+    if (userInput !== "" && userInput !== undefined) {
+      return userInput
+    } else if (city !== "" && state !== "") {
+      return cityState
+    } else {
+      return ""
+    }
   }
 
   render() {
-    const {city, state} = this.props.currentLocation
-    const city_state = `${city}, ${state}`
     return (
-      <form className="search" onSubmit={this.handleFormSubmit}>
-        <label style={{color: "white"}} value="">
-          <input type="text" onChange={this.handleChange} placeholder={city_state}></input>
-          <input type="submit" value="Change Location" />
-          <div className={this.state.showTypeahead ? "dropdown" : "invisible"}>
-            <div className="search-typeahead">
-            {this.state.locationSuggestion}
-            </div>
+      <Form inline className="search" onSubmit={this.handleFormSubmit}>
+        <FormGroup>
+          <Label style={{color: "black"}}>Current Location</Label>
+          <Input type="text" onChange={this.handleChange} 
+            value={this.locationFormValue()} />
+        </FormGroup>
+        <Button>Submit</Button>
+        <div className={this.state.showTypeahead ? "dropdown" : "invisible"}>
+          <div className="search-typeahead">
+          {this.state.locationSuggestion}
           </div>
-        </label>
-      </form>
+        </div>
+      </Form>
     );
   }
 }

@@ -5,23 +5,21 @@ import Filters from '../components/Filters';
 import BeautyPlacesList from '../components/BeautyPlacesList';
 import { 
   getBeautyPlaces, 
+  getBeautyPlacesByUserInput,
   getCurrentLocation,
-  changeFilters
+  changeFilters,
+  userInputCurrentLocation
 } from '../actions/BeautyPlaceActions'
 
 class BeautyPlacesContainer extends Component {
   componentDidMount() {
-    navigator.geolocation.getCurrentPosition(position => {
-      const { latitude, longitude } = position.coords 
-      const { filters } = this.props
+    if (this.props.currentLocation.userInput === "") {
+      navigator.geolocation.getCurrentPosition(position => {
+        const { latitude, longitude } = position.coords 
 
-      this.props
-        .getCurrentLocation(latitude, longitude)
-        .then(currentLocation => {
-          this.props.getBeautyPlaces(filters, currentLocation)
-        });
-
-    });
+        this.props.getCurrentLocation(latitude, longitude)
+      });
+    }
   }
 
   handleFilterChange = (filters) => { 
@@ -29,12 +27,23 @@ class BeautyPlacesContainer extends Component {
     this.props.getBeautyPlaces(filters, this.props.currentLocation);
   }
 
+  handleUserInput = (currentLocation) => {
+    const { filters } = this.props
+
+    this.props.userInputCurrentLocation(currentLocation)
+    this.props
+        .getBeautyPlacesByUserInput(filters, this.props.currentLocation.userInput)
+  }
+
   render() {
     const { beautyPlaces, currentLocation } = this.props;
 
     return (
       <div className="mx-auto">
-        <SearchForm currentLocation={currentLocation} onSubmit={this.fetchBeautyPlaces} />
+        <SearchForm currentLocation={currentLocation} 
+          handleCurrentLocationUpdate={
+            (userInput) => this.handleUserInput(userInput)
+          } />
         <Filters changeFilters={(filters) => this.handleFilterChange(filters)} />
         <BeautyPlacesList beautyPlaces={beautyPlaces} />
       </div>
@@ -51,7 +60,9 @@ export default connect(
   }), { 
     getCurrentLocation, 
     getBeautyPlaces,
-    changeFilters
+    changeFilters,
+    userInputCurrentLocation,
+    getBeautyPlacesByUserInput
   }
 )(BeautyPlacesContainer);
 

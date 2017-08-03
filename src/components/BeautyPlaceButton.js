@@ -8,7 +8,6 @@ class BeautyPlaceButton extends React.Component {
     super(props);
     this.state = {
       modal: false,
-      placeId: props.placeId,
       details: {reviews: []}
     };
 
@@ -17,7 +16,7 @@ class BeautyPlaceButton extends React.Component {
   }
 
   handleClick() {
-    BeautyPlaceDetailsService.fetch(this.state.placeId).then(
+    BeautyPlaceDetailsService.fetch(this.props.placeId).then(
       details => this.setState({details})
     )
 
@@ -38,7 +37,9 @@ class BeautyPlaceButton extends React.Component {
     return (
       <div className="d-inline">
         <Button color="primary" onClick={this.handleClick}>Reviews</Button>
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+        <Modal isOpen={this.state.modal} 
+               toggle={this.toggle} 
+               className={this.props.className}>
           <ModalHeader toggle={this.toggle}>{details.name}</ModalHeader>
           <ModalBody>
             <ReviewList reviews={details.reviews} />

@@ -16,6 +16,14 @@ export function fetchByCityState(currentLocation, filters) {
     .then(res => res.json())
 };
 
+export function fetchByUserInput(userInput, filters) {
+  const userInputLocation = `current_location[user_input]=${userInput}`
+  let url = `${API_URL}/search?type=${filters.join('+')}&${userInputLocation}`;
+
+  return fetch(url, {accept: 'application/json'})
+    .then(res => res.json())
+}
+
 export function fetchCurrentLocation(lat, lng) {
   let url = `${API_URL}/current_location?coords=${lat}+${lng}`;
 
