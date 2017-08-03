@@ -33,8 +33,12 @@ class BeautyPlacesContainer extends Component {
     const { filters } = this.props
 
     this.props.userInputCurrentLocation(userInput);
+  }
+
+  handleSearchSubmission = () => {
+    const { filters, currentLocation } = this.props
     this.props
-        .getBeautyPlacesByUserInput(filters, this.props.currentLocation.userInput);
+        .getBeautyPlacesByUserInput(filters, currentLocation.userInput);
   }
 
   render() {
@@ -43,6 +47,7 @@ class BeautyPlacesContainer extends Component {
     return (
       <div className="mx-auto">
         <SearchForm currentLocation={currentLocation} 
+          handleSearchSubmission={() => this.handleSearchSubmission()}
           handleCurrentLocationUpdate={
             (userInput) => this.handleUserInput(userInput)
           } />

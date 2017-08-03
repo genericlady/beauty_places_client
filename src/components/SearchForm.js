@@ -26,6 +26,8 @@ export default class SearchForm extends React.Component {
       locationSuggestion: event.target.value,
       showTypeahead: event.target.value.length > 0 ? true : false,
     });
+
+    this.props.handleCurrentLocationUpdate(event.target.value)
   }
 
   handleFormSubmit(ev) {
@@ -37,6 +39,7 @@ export default class SearchForm extends React.Component {
     });
 
     this.props.handleCurrentLocationUpdate(this.props.currentLocation.userInput)
+    this.props.handleSearchSubmission()
   }
 
   locationFormValue() {
