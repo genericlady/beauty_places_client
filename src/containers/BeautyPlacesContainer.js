@@ -23,8 +23,10 @@ class BeautyPlacesContainer extends Component {
   }
 
   handleFilterChange = (filters) => { 
+    const {userInput} = this.props.currentLocation
+
     this.props.changeFilters(filters);
-    this.props.getBeautyPlaces(filters, this.props.currentLocation);
+    this.props.getBeautyPlacesByUserInput(filters, userInput);
   }
 
   handleUserInput = (userInput) => {
