@@ -36,12 +36,11 @@ export default class SearchForm extends React.Component {
       showTypeahead: false
     });
 
-    this.props.handleCurrentLocationUpdate(this.state.userInput)
+    this.props.handleCurrentLocationUpdate(this.props.currentLocation.userInput)
   }
 
   locationFormValue() {
-    const {city, state} = this.props.currentLocation
-    const userInput = this.state.userInput
+    const {city, state, userInput} = this.props.currentLocation
     const cityState = `${city}, ${state}`
 
     if (userInput !== "" && userInput !== undefined) {

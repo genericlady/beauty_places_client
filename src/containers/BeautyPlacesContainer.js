@@ -27,12 +27,12 @@ class BeautyPlacesContainer extends Component {
     this.props.getBeautyPlaces(filters, this.props.currentLocation);
   }
 
-  handleUserInput = (currentLocation) => {
+  handleUserInput = (userInput) => {
     const { filters } = this.props
 
-    this.props.userInputCurrentLocation(currentLocation)
+    this.props.userInputCurrentLocation(userInput);
     this.props
-        .getBeautyPlacesByUserInput(filters, this.props.currentLocation.userInput)
+        .getBeautyPlacesByUserInput(filters, this.props.currentLocation.userInput);
   }
 
   render() {

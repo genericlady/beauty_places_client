@@ -50,7 +50,13 @@ export const getCurrentLocation = (latitude, longitude) => {
   return dispatch => {
     const currentLocation = fetchCurrentLocation(latitude, longitude); 
 
-    currentLocation.then(cl => dispatch(receivedCurrentLocation(cl)))
+
+    currentLocation.then(cl => {
+      const {city, state} = cl
+      const userInput = `${city}, ${state}`
+      const newLocation = {city, state, userInput}
+      dispatch(receivedCurrentLocation(newLocation))
+    })
 
     return Promise.resolve(currentLocation)
   }
